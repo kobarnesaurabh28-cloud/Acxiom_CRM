@@ -1,0 +1,8 @@
+@using System.Text.Json
+<h3>Dashboard</h3><div class="row g-3 mb-4">
+@foreach (var c in (Dictionary<string, object>)ViewBag.Cards) { <div class="col-6 col-md-3"><div class="card text-center"><div class="card-body"><div class="text-muted small">@c.Key</div><div class="fs-3">@c.Value</div></div></div></div> }
+</div><div class="row"><div class="col-md-6"><canvas id="leads"></canvas></div><div class="col-md-6"><canvas id="opps"></canvas></div></div>
+@section Scripts { <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script><script>
+function draw(id,data,type,label){new Chart(document.getElementById(id),{type:type,data:{labels:data.map(x=>x.k),datasets:[{label:label,data:data.map(x=>x.v)}]}});}
+draw('leads', @Html.Raw(JsonSerializer.Serialize(ViewBag.LeadChart)), 'doughnut', 'Leads by status');
+draw('opps', @Html.Raw(JsonSerializer.Serialize(ViewBag.OppChart)), 'bar', 'Opportunities by stage');</script> }

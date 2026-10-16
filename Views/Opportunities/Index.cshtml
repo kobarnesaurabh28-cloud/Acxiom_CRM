@@ -1,0 +1,5 @@
+@model List<Opportunity>
+<div class="d-flex justify-content-between mb-3"><h3>Opportunities</h3><a class="btn btn-primary" asp-action="Create">New Opportunity</a></div>
+<table class="table"><tr><th>Name</th><th>Customer</th><th>Stage</th><th>Amount</th><th>Prob %</th><th>Weighted</th><th>Close</th></tr>
+@foreach (var o in Model) { <tr><td>@o.OpportunityName</td><td>@o.Customer?.CustomerName</td><td>@o.Stage</td><td>@o.Amount.ToString("N0")</td><td>@o.Probability</td><td>@((o.Amount*o.Probability/100).ToString("N0"))</td><td>@o.ExpectedCloseDate.ToShortDateString()</td></tr> }
+</table>

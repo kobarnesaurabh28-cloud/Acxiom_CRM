@@ -1,0 +1,7 @@
+@model List<Customer>
+<div class="d-flex justify-content-between mb-3"><h3>Customers</h3><a class="btn btn-primary" asp-action="Create">New Customer</a></div>
+<form method="get" class="mb-3"><input name="q" class="form-control" placeholder="Search name, email, phone, company"></form>
+<table class="table"><tr><th>Code</th><th>Name</th><th>Email</th><th>Phone</th><th>Company</th><th>Status</th><th></th></tr>
+@foreach (var c in Model) { <tr><td>@c.CustomerCode</td><td>@c.CustomerName</td><td>@c.Email</td><td>@c.Phone</td><td>@c.CompanyName</td><td>@c.Status</td>
+<td>@if (User.IsInRole("Admin") || User.IsInRole("Manager")) { <form asp-action="Deactivate" asp-route-id="@c.CustomerId" method="post" onsubmit="return confirm('Deactivate?')"><button class="btn btn-sm btn-outline-danger">Deactivate</button></form> }</td></tr> }
+</table>
